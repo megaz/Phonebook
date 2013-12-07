@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence xmlns="http://java.sun.com/xml/ns/persistence"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd"
+  version="2.0">
+  
+   <persistence-unit name="manager">
+    <provider>org.hibernate.ejb.HibernatePersistence</provider>
+    <class>com.zahir.entity.Contact</class>
+    
+    <properties>
+      <property name="javax.persistence.jdbc.driver" value="org.hsqldb.jdbcDriver"/>
+      <property name="javax.persistence.jdbc.url" value="jdbc:hsqldb:mem:javaquizdb"/>
+      <property name="javax.persistence.jdbc.user" value="root"/>
+      <property name="javax.persistence.jdbc.password" value="root"/>
+      <property name="hibernate.dialect" value="org.hibernate.dialect.HSQLDialect"/>
+      <property name="hibernate.hbm2ddl.auto" value="update"/>
+    </properties>
+  </persistence-unit>
+  
+   <persistence-unit name="javaQuizTestPU" transaction-type="RESOURCE_LOCAL">
+			<provider>org.hibernate.ejb.HibernatePersistence</provider>
+			<!-- the JNDI data source -->
+			<non-jta-data-source>java:comp/env/jdbc/JavaQuizDB</non-jta-data-source>
+			<properties>
+				<!-- if this is true, hibernate will print (to stdout) the SQL it executes, 
+					so you can check it to ensure it's not doing anything crazy -->
+				<property name="hibernate.show_sql" value="false" />
+				<property name="hibernate.format_sql" value="false" />
+				<!-- since most database servers have slightly different versions of the 
+					SQL, Hibernate needs you to choose a dialect so it knows the subtleties of 
+					talking to that server -->
+				<property name="hibernate.dialect" value="org.hibernate.dialect.DerbyDialect" />
+				<!-- this tell Hibernate to update the DDL when it starts, very useful 
+					for development, dangerous in production -->
+				<property name="hibernate.hbm2ddl.auto" value="update" />
+			</properties>
+		</persistence-unit>
+</persistence>
